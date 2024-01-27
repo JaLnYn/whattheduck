@@ -1,0 +1,19 @@
+{
+    "id": "fb14d11e-7ed3-46d3-8743-d5b0f0f1d81b",
+    "text": " student duck studying at the library\nvolleyball duck playing volleyball on the court\nskiier duck skiing down a mountain\n23 duck holding a birthday cake",
+    "meta": {
+        "api_version": {
+            "version": "unspecified",
+            "is_deprecated": true
+        },
+        "warnings": [
+            "Please set an API version, for more information please refer to https://docs.cohere.com/versioning-reference",
+            "Version is deprecated, for more information please refer to https://docs.cohere.com/versioning-reference"
+        ],
+        "billed_units": {
+            "input_tokens": 336,
+            "output_tokens": 31
+        }
+    },
+    "finish_reason": "COMPLETE"
+}
