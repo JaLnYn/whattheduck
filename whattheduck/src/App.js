@@ -27,7 +27,7 @@ function Splash({ isPopping, onImageClick }) {
   );
 }
 
-function Notepad({ setMyBio, onButtonClick }) {
+function Notepad({ myBio, setMyBio, onButtonClick }) {
   return (
     <div className="Page Container">
       <div className="title">
@@ -38,8 +38,8 @@ function Notepad({ setMyBio, onButtonClick }) {
       <div>
         <input
           type="text"
-          value={tempText}
-          onChange={(e) => setTempText(e.target.value)}
+          value={myBio}
+          onChange={(e) => setMyBio(e.target.value)}
           placeholder="Enter some text"
         />
         <button onClick={onButtonClick}>continnue</button>
@@ -117,7 +117,15 @@ function App() {
       );
       break;
     case "second":
-      content = <Notepad />;
+      content = (
+        <Notepad
+          myBio={myBio}
+          setMyBio={setMyBio}
+          onButtonClick={() => {
+            setCurrentPage("third");
+          }}
+        />
+      );
       break;
     case "third":
       content = <GooseSelector />;
