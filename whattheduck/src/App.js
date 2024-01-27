@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import whatTheDuck from './whattheduck.svg'; // Assuming the SVG is in the src directory
-import whatTheDuckChoose from './whattheduckchoose.svg'; // Assuming the SVG is in the src directory
-import favoritegoose from './favoritegoose.svg'; // Assuming the SVG is in the src directory
-import rolodex from './rolodex.svg'; // Assuming the SVG is in the src directory
-import matching from './matching.svg'; // Assuming the SVG is in the src directory
-import chatting from './chatting.svg'; // Assuming the SVG is in the src directory
-import appearance from './appearance.svg'; // Assuming the SVG is in the src directory
+import whatTheDuck from './whattheduck.svg'; 
+import favoritegoose from './favoritegoose.svg'; 
+import matching from './matching.svg'; 
+import chatting from './chatting.svg'; 
+import appearance from './appearance.svg'; 
+import gentlegoose from './gentlegoose.svg'; 
+import yesorno from './yesorno.svg'; 
+import yes from './yes.svg'; 
+import no from './no.svg'; 
+import rolodexbody from './rolodexbody.svg';
+import rolodexwheel from './rolodexwheel.svg'; 
+import welcome from './welcome.svg'; 
+import notepad from './notepad.svg';
 
 function FirstPage({ isPopping, onImageClick }) {
   return (
@@ -21,22 +27,52 @@ function FirstPage({ isPopping, onImageClick }) {
   );
 }
 
+
+function ThirdPage() {
+  return (
+    <div className="Page Container">
+      <div className="title">
+        <img src={welcome} alt="welcome" className="welcome" />
+      </div>
+
+      <div className="notepad-wrapper">
+        <div className="notepad">
+          <img src={notepad} alt="notepad" className="notepad-image" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 function SecondPage() {
   return (
     <div className="Page Container">
-      <img src={favoritegoose} alt="Goose" className="favoritegoose" />
-      <img src={rolodex} alt="Text" className="rolodex" />
-      <div className="Menu">
-        <img src={matching} alt="Goose" className="matching" />
-        <img src={chatting} alt="Text" className="chatting" />
-        <img src={appearance} alt="Text" className="appearance" />
+      <div className="title">
+        <img src={favoritegoose} alt="Goose" className="favoritegoose" />
       </div>
-      {/* <img
-        src={whatTheDuckChoose}
-        alt="Choose Gentleman Goose"
-        className="ease-in"
-        style={{ height: '700px' }}
-      /> */}
+      
+      <div className="photo">
+        <div className="rolodex">
+          <img src={gentlegoose} alt="gentlegoose" className="gentlegoose" />
+          <div className="yesorno" >
+            <img src={yesorno} className="pagebackground"/>
+            <div className="buttons">
+              <img src={yes} alt="yes" className="yes" />
+              <img src={no} alt="no" />
+            </div>
+          </div>
+
+          <img src={rolodexbody} alt="rolodexbody" className="rolodexbody" />
+          <img src={rolodexwheel} alt="rolodexwheel" className="rolodexwheel" />
+        </div>
+      </div>
+      
+      <div className="Menu">
+        <img src={matching} alt="matching" className="matching" />
+        <img src={chatting} alt="chatting" className="chatting" />
+        <img src={appearance} alt="appearance" className="appearance" />
+      </div>
     </div>
   );
 }
@@ -45,7 +81,7 @@ function SecondPage() {
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isPopping, setIsPopping] = useState(false);
-  const [showSecondPage, setShowSecondPage] = useState(false);
+  const [currentPage, setCurrentPage] = useState('first');
 
   useEffect(() => {
     setTimeout(() => {
@@ -56,16 +92,26 @@ function App() {
   }, []);
 
   function handleImageClick() {
-    setShowSecondPage(true); // Change the state to show the second image
+    setCurrentPage('second'); // Change the state to show the second page
   }
 
   let content;
-  if (isLoading) {
-    content = <div className="LoadingScreen"><p>Loading...</p></div>;
-  } else if (showSecondPage) {
-    content = <SecondPage />;
-  } else {
-    content = <FirstPage isPopping={isPopping} onImageClick={handleImageClick} />;
+  switch (currentPage) {
+    case 'first':
+      content = isLoading ? (
+        <div className="LoadingScreen"><p>Loading...</p></div>
+      ) : (
+        <FirstPage isPopping={isPopping} onImageClick={handleImageClick} />
+      );
+      break;
+    case 'second':
+      content = <SecondPage />;
+      break;
+    case 'third':
+      content = <ThirdPage />;
+      break;
+    default:
+      content = <div>Page not found</div>;
   }
 
   return <div className="App">{content}</div>;
