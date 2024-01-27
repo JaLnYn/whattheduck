@@ -54,7 +54,14 @@ function SecondPage() {
       
       <div className="photo">
         <div className="rolodex">
-          <img src={gentlegoose} alt="gentlegoose" className="gentlegoose" />
+          <div className="above">
+            <img src={gentlegoose} alt="gentlegoose" className="pagebackground2" />
+            <div className="info">
+              <div className="pic"></div>
+              <div className="bio">"This would be the description about the user"</div>
+            </div>
+          </div>
+
           <div className="yesorno" >
             <img src={yesorno} className="pagebackground"/>
             <div className="buttons">
