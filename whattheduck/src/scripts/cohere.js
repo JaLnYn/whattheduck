@@ -1,4 +1,5 @@
 const axios = require('axios');
+const fs = require('fs');
 // import axios from 'axios';
 
 const cohereApiKey = 'axItsFvEMPwChHWP5Ys7ECenX08VMXK6VYDOAVPU';
@@ -39,6 +40,15 @@ axios
 })
 .then(response => {
     console.log('Response from Cohere:', response.data);
+    const responseData = response.data; 
+    // Save to a JSON file
+    fs.writeFile('cohere_response.json', JSON.stringify(responseData, null, 4), (err) => {
+        if (err) {
+            console.error('Error writing file:', err);
+        } else {
+            console.log('Saved response to response.json');
+        }
+    });
 })
 .catch(error => {
     console.error('Error calling Cohere API:', error);
