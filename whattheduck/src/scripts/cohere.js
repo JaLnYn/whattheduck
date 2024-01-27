@@ -21,13 +21,14 @@ const options = {
 //     console.error(error);
 //   });
 
+const preferences = "Hi my name is Alan and I like to go skiing and play volleyball, I am 23 year old and I am doing my master."
 
 axios
     .post(cohereEndpoint, {
     // Your request payload goes here
     // For example, if using a text generation model, you'd include the prompt and other parameters
     // See https://docs.cohere.ai/api-reference/models/gpt-3
-    prompt: "There is a duck wanting to date and he has a lot of costumes... can you come up with a list",
+    prompt: "Pretend I am a duck instead of human that has this dating bio: " + preferences + " can you just give me a list of adjective attributes that summarizes me as a duck? \n\n" ,
     max_tokens: 100,
     temperature: 0.7,
     stop_sequences: ["###"]

@@ -1,6 +1,6 @@
 {
-    "id": "c632b86b-da39-4d90-88d4-c5f2c0ba73f9",
-    "text": " Sure! Here are alistof dating app profile names for a duck with a lot of costumes: \n\n1. Pretty Duck-inkle\n2. Duck the exhilarated\n3. Quacky McFlatten\n4. Ducky Do-right \n5. The Ducktor \n6. Duckiator of romance\n7. Romeo Duckioti \n8. Mellarducks \n9. Duckidated \n10. Heart duck Pond \n\n\nI hope that is",
+    "id": "d02fffbe-2d7b-47f9-83fe-7b00ff91aece",
+    "text": " Sure! Here is a list of attributes that summarize you as a duck, based on the information provided: \n\n- Young \n- Active \n- Competitive \n- Fun \n- Social \n- Adventure-seeking \n- Sporting \n\nThese attributes provide an overview of your personality and interests. Let me know if you would like me to elaborate on any of these points or provide different words to better describe yourself as a duck. ",
     "meta": {
         "api_version": {
             "version": "unspecified",
@@ -11,9 +11,9 @@
             "Version is deprecated, for more information please refer to https://docs.cohere.com/versioning-reference"
         ],
         "billed_units": {
-            "input_tokens": 22,
-            "output_tokens": 100
+            "input_tokens": 60,
+            "output_tokens": 93
         }
     },
-    "finish_reason": "MAX_TOKENS"
+    "finish_reason": "COMPLETE"
 }

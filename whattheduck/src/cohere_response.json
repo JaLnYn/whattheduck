@@ -1,0 +1,19 @@
+{
+    "id": "2baa3288-4fc5-440d-b607-e16eb132a5ff",
+    "text": " Here is a list summarizing the information from your dating profile: \n\n- Alan, is a 23-year-old duck who loves to spend time outdoors. \n- You enjoy skiing and playing volleyball, \n- You are doing your master's degree and are 23 years old, \n- You are an avid learner and enjoy spending time with others. \n\nThis is a brief overview, is there anything else that you would like to add or any other questions you need help with",
+    "meta": {
+        "api_version": {
+            "version": "unspecified",
+            "is_deprecated": true
+        },
+        "warnings": [
+            "Please set an API version, for more information please refer to https://docs.cohere.com/versioning-reference",
+            "Version is deprecated, for more information please refer to https://docs.cohere.com/versioning-reference"
+        ],
+        "billed_units": {
+            "input_tokens": 53,
+            "output_tokens": 100
+        }
+    },
+    "finish_reason": "MAX_TOKENS"
+}
