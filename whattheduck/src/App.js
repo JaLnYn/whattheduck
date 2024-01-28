@@ -15,6 +15,8 @@ import welcome from "./welcome.svg";
 import notepad from "./notepad.svg";
 import inputstart from "./inputstart.svg";
 import AutoGrowingTextarea from "./AutoGrowingTextarea";
+import matched from "./matched.svg"
+import retry from "./retry.svg"
 
 import callCohereApi from "./scripts/cohereAPI";
 import processPrompts from "./scripts/diffAPI";
@@ -138,6 +140,25 @@ function BufferToImage({ buffer }) {
 
 function GooseSelector({ currentGoose, onButtonClick }) {
 
+  const [svgToShow, setSvgToShow] = useState(null);
+
+  const handleYesButtonClick = () => {
+    onButtonClick("yes");
+    setSvgToShow("matched"); // Set the SVG to show
+    setTimeout(() => {
+      setSvgToShow(null); // Reset the SVG after 1 second
+    }, 1000);
+  };
+
+  // Function to handle the click event for the "no" button
+  const handleNoButtonClick = () => {
+    onButtonClick("no");
+    setSvgToShow("retry"); // Set the SVG to show
+    setTimeout(() => {
+      setSvgToShow(null); // Reset the SVG after 1 second
+    }, 1000);
+  };
+
   function extractFirstSentence(text) {
     // Find the index of the first comma
     const commaIndex = text.indexOf(',');
@@ -166,7 +187,7 @@ function GooseSelector({ currentGoose, onButtonClick }) {
         <img src={gentlegoose} className="pagebackground2" />
         <div className="above">
           <BufferToImage key={"hello"} buffer={currentGoose.images[9][0]} />
-          <p className="bio"> This person likes: {firstSentence}.</p>
+          <p className="bio"> {firstSentence}.</p>
         </div>
 
           <div className="yesorno">
