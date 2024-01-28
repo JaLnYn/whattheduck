@@ -108,12 +108,12 @@
 }
 
 /* Add any additional styles you need for your images */
-.favoritegoose, .rolodex, .matching, .chatting, .appearance {
+.titlegoose, .rolodex, .matching, .chatting, .appearance {
   max-width: 100%; /* Ensure it doesn't overflow its container */
   height: auto; /* Maintain aspect ratio */
 }
 
-.favoritegoose, .welcome{
+.titlegoose, .welcome{
   margin-bottom: 50px;
 }
 
@@ -159,10 +159,17 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 299px;
+  height: 232px;
 }
 
-.pagebackground, .pagebackground2{
+.pagebackground{
   position: relative;
+}
+
+.pagebackground2{
+  position: absolute;
+  top: 0;
 }
 
 .buttons, .info{
@@ -175,12 +182,16 @@
   z-index: 2;
 }
 
-.pic{
+.buttons{
+  cursor: pointer;
+}
+
+.favoritegoose{
   width: 134px;
   height: 134px;
-  background-color: gray;
   margin-left: 21px;
   margin-right: 15px;
+  object-fit: cover;
 }
 
 .bio{
@@ -194,7 +205,11 @@
 }
 
 .yes{
-  margin-right: 45px;
+  margin-right: 35px;
+  margin-left: 10px;
+}
+
+.no{
   margin-left: 10px;
 }
 
@@ -345,8 +360,32 @@ textarea{
   }
 }
 
-.title img{
-  height: 134px;
-  width: 134px;
-  object-fit: cover;
+@keyframes popUp {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply the animation to the element with the .slide-down class */
+.animated {
+  animation: slideUp 0.5s ease forwards;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animated2 {
+  animation: easeInAnimation 0.5s ease forwards;
 }
