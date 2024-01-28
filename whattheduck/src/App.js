@@ -14,8 +14,7 @@ import rolodexwheel from "./rolodexwheel.svg";
 import welcome from "./welcome.svg";
 import notepad from "./notepad.svg";
 import inputstart from "./inputstart.svg";
-import AutoGrowingTextarea from './AutoGrowingTextarea';
-
+import AutoGrowingTextarea from "./AutoGrowingTextarea";
 
 import callCohereApi from "./scripts/cohereAPI";
 import processPrompts from "./scripts/diffAPI";
@@ -33,80 +32,86 @@ function Splash({ isPopping, onImageClick }) {
   );
 }
 
-
-function Notepad({ myBio, setMyBio, onButtonClick, myName, setMyName, myAge, setMyAge }) {
+function Notepad({
+  myBio,
+  setMyBio,
+  onButtonClick,
+  myName,
+  setMyName,
+  myAge,
+  setMyAge,
+}) {
   return (
     <div className="Page Container">
       <div className="title">
         <img src={welcome} alt="welcome" className="welcome" />
       </div>
 
-    <div className="notepad_input">
-      <img src={inputstart} className="inputstart" />
+      <div className="notepad_input">
+        <img src={inputstart} className="inputstart" />
 
-      {/* Asking Name */}
-      {/* temperature */}
-      <div className="askname">
-        <span className="question">What's your name?</span>
-        <div className="initial_information">
-        <span className="question semicolon">:</span>
-                <AutoGrowingTextarea
-                  type="text"
-                  value={myName}
-                  onChange={(e) => setMyName(e.target.value)}
-                  placeholder="Enter some text"
-                  className="input_text"
-                />
+        {/* Asking Name */}
+        {/* temperature */}
+        <div className="askname">
+          <span className="question">What's your name?</span>
+          <div className="initial_information">
+            <span className="question semicolon">:</span>
+            <AutoGrowingTextarea
+              type="text"
+              value={myName}
+              onChange={(e) => setMyName(e.target.value)}
+              placeholder="Enter some text"
+              className="input_text"
+            />
+          </div>
         </div>
-      </div>
-      
-      {/* //temp */}
 
-      {/* Asking Age */}
-      {/* temperature */}
-      <div className="askage">
-        <span className="question">What's your age?</span>
-        <div className="initial_information">
-        <span className="question semicolon">:</span>
-                <AutoGrowingTextarea
-                  type="text"
-                  value={myAge}
-                  onChange={(e) => setMyAge(e.target.value)}
-                  placeholder="Enter some text"
-                  className="input_text"
-                  rows={2}
-                />
+        {/* //temp */}
+
+        {/* Asking Age */}
+        {/* temperature */}
+        <div className="askage">
+          <span className="question">What's your age?</span>
+          <div className="initial_information">
+            <span className="question semicolon">:</span>
+            <AutoGrowingTextarea
+              type="text"
+              value={myAge}
+              onChange={(e) => setMyAge(e.target.value)}
+              placeholder="Enter some text"
+              className="input_text"
+              rows={2}
+            />
+          </div>
         </div>
-      </div>
-      {/* //temp */}
+        {/* //temp */}
 
-      {/* This one is bio */}
-      {/* temperature */}
-      <div className="askbio">
-        <span className="question">Share your bio!</span>
-        <div className="initial_information">
-        <span className="question semicolon">:</span>
-                <AutoGrowingTextarea
-                  type="text"
-                  value={myBio}
-                  onChange={(e) => setMyBio(e.target.value)}
-                  placeholder="Enter some text"
-                  className="input_text"
-                />
+        {/* This one is bio */}
+        {/* temperature */}
+        <div className="askbio">
+          <span className="question">Share your bio!</span>
+          <div className="initial_information">
+            <span className="question semicolon">:</span>
+            <AutoGrowingTextarea
+              type="text"
+              value={myBio}
+              onChange={(e) => setMyBio(e.target.value)}
+              placeholder="Enter some text"
+              className="input_text"
+            />
+          </div>
         </div>
-      </div>
-      {/* //temp */}
+        {/* //temp */}
 
-      <div className="submit" onClick={onButtonClick}>
-        Let's Start!
-      </div>
+        <div className="submit" onClick={onButtonClick}>
+          Let's Start!
+        </div>
 
         <div className="notepad-wrapper">
           <img src={notepad} alt="notepad" className="notepad-image" />
         </div>
       </div>
     </div>
-      
   );
 }
 
@@ -133,17 +138,14 @@ function GooseSelector({ currentGoose, onButtonClick }) {
   return (
     <div className="Page Container">
       <div className="title">
-        {/* <img src={favoritegoose.images} alt="Goose" className="favoritegoose" /> */}
-        <BufferToImage key={"hello"} buffer={currentGoose.images[9][0]} />
+        <img src={favoritegoose.images} alt="Goose" className="favoritegoose" />
       </div>
 
       <div className="photo">
         <div className="rolodex">
-          <img
-            src={currentGoose}
-            alt="Current Goose"
-            className="current-goose"
-          />
+          <BufferToImage key={"hello"} buffer={currentGoose.images[9][0]} />
+          <p> {currentGoose.prompt} </p>
+
           <div className="yesorno">
             <img src={yesorno} className="pagebackground" />
             <div className="buttons">
@@ -170,8 +172,6 @@ function GooseSelector({ currentGoose, onButtonClick }) {
     </div>
   );
 }
-
-
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -219,7 +219,7 @@ function App() {
             <div class="dot"></div>
             <div class="dot"></div>
           </div>
-      </div>
+        </div>
       ) : (
         <Splash isPopping={isPopping} onImageClick={handleImageClick} />
       );
