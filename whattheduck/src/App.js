@@ -17,6 +17,9 @@ import inputstart from "./inputstart.svg";
 import AutoGrowingTextarea from './AutoGrowingTextarea';
 
 
+import callCohereApi from "./scripts/cohereAPI";
+import processPrompts from "./scripts/diffAPI";
+
 function Splash({ isPopping, onImageClick }) {
   return (
     <div className="Page" onClick={onImageClick}>
@@ -107,21 +110,50 @@ function Notepad({ myBio, setMyBio, onButtonClick, myName, setMyName, myAge, set
   );
 }
 
-function GooseSelector() {
+function BufferToImage({ buffer }) {
+  console.log(buffer);
+  // Convert the buffer to a Base64 string
+  const base64String = btoa(
+    new Uint8Array(buffer).reduce(
+      (data, byte) => data + String.fromCharCode(byte),
+      ""
+    )
+  );
+
+  return (
+    <img
+      src={`data:image/jpeg;base64,${base64String}`}
+      alt="Goose"
+      className="favoritegoose"
+    />
+  );
+}
+
+function GooseSelector({ currentGoose, onButtonClick }) {
   return (
     <div className="Page Container">
       <div className="title">
-        <img src={favoritegoose} alt="Goose" className="favoritegoose" />
+        {/* <img src={favoritegoose.images} alt="Goose" className="favoritegoose" /> */}
+        <BufferToImage key={"hello"} buffer={currentGoose.images[9][0]} />
       </div>
 
       <div className="photo">
         <div className="rolodex">
-          <img src={gentlegoose} alt="gentlegoose" className="gentlegoose" />
+          <img
+            src={currentGoose}
+            alt="Current Goose"
+            className="current-goose"
+          />
           <div className="yesorno">
             <img src={yesorno} className="pagebackground" />
             <div className="buttons">
-              <img src={yes} alt="yes" className="yes" />
-              <img src={no} alt="no" />
+              <img
+                src={yes}
+                alt="yes"
+                className="yes"
+                onClick={() => onButtonClick("yes")}
+              />
+              <img src={no} alt="no" onClick={() => onButtonClick("no")} />
             </div>
           </div>
 
@@ -148,13 +180,28 @@ function App() {
   const [myName, setMyName] = useState("");
   const [myAge, setMyAge] = useState("");
   const [currentPage, setCurrentPage] = useState("first");
+  const [gooseImages, setGooseImages] = useState([null]); // initialGooseImages is an array of image URLs
+  const [currentGooseIndex, setCurrentGooseIndex] = useState(0);
+
+  const removeGooseImage = (response) => {
+    if (response === "yes" || response === "no") {
+      // Remove the current goose image from the list
+      setGooseImages((prevImages) =>
+        prevImages.filter((_, index) => index !== currentGooseIndex)
+      );
+      // Optionally, update the current goose index
+      setCurrentGooseIndex((prevIndex) =>
+        prevIndex === gooseImages.length - 1 ? 0 : prevIndex + 1
+      );
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
       setIsPopping(true); // Start the popping animation after loading
       setTimeout(() => setIsPopping(false), 600); // Reset the animation state after it completes
-    }, 3000);
+    }, 1000);
   }, []);
 
   function handleImageClick() {
@@ -186,14 +233,35 @@ function App() {
           setMyName={setMyName}
           myAge={myAge}
           setMyAge={setMyAge}
-          onButtonClick={() => {
+          onButtonClick={async () => {
+            setIsLoading(true);
             setCurrentPage("third");
+            console.log("Calling Cohere API with bio:", myBio);
+            let resp = await callCohereApi(myBio);
+            console.log("Response from Cohere:", resp);
+            const results = await processPrompts(resp);
+            setGooseImages(results);
+            console.log(results);
+            // remove items if more than 5
+            if (results.length > 5) {
+              results.splice(5, results.length - 5);
+            }
+            setIsLoading(false);
           }}
         />
       );
       break;
     case "third":
-      content = <GooseSelector />;
+      content = isLoading ? (
+        <div className="LoadingScreen">
+          <p>Loading...</p>
+        </div>
+      ) : (
+        <GooseSelector
+          currentGoose={gooseImages[currentGooseIndex]}
+          onButtonClick={removeGooseImage}
+        />
+      );
       break;
 
     default:

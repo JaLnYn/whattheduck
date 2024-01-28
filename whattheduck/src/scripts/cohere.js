@@ -1,5 +1,4 @@
 const axios = require("axios");
-const fs = require("fs");
 // import axios from 'axios';
 
 const cohereApiKey = "axItsFvEMPwChHWP5Ys7ECenX08VMXK6VYDOAVPU";
@@ -72,7 +71,7 @@ Bio: ` +
   )
   .then((response) => {
     console.log("Response from Cohere:", response.data);
-    const responseData = response.data;
+    console.log("text", response.data.text);
     // Save to a JSON file
   })
   .catch((error) => {
