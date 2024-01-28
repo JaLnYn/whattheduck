@@ -253,9 +253,14 @@ function App() {
       break;
     case "third":
       content = isLoading ? (
-        <div className="LoadingScreen">
-          <p>Loading...</p>
-        </div>
+        <div class="loading-container">
+          <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+      </div>
       ) : (
         <GooseSelector
           currentGoose={gooseImages[currentGooseIndex]}

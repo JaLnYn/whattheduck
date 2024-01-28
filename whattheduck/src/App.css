@@ -344,3 +344,9 @@ textarea{
     transform: translateY(-20px);
   }
 }
+
+.title img{
+  height: 134px;
+  width: 134px;
+  object-fit: cover;
+}
