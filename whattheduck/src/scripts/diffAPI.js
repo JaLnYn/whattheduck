@@ -36,7 +36,7 @@ export async function getHistory(promptId) {
 
 // Function to get images for a single prompt
 export async function getImages(prompt, customPrompt) {
-  prompt["6"]["inputs"]["text"] = customPrompt;
+  prompt["6"]["inputs"]["text"] = customPrompt + " with a hat";
   prompt["3"]["inputs"]["seed"] = Math.floor(Math.random() * 5000000);
   const { prompt_id } = await queuePrompt(prompt);
 

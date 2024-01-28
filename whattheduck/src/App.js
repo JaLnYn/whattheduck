@@ -134,10 +134,7 @@ function BufferToImage({ buffer }) {
   );
 }
 
-
-
 function GooseSelector({ currentGoose, onButtonClick }) {
-
   function extractFirstSentence(text) {
     // Find the index of the first comma
     const commaIndex = text.indexOf(",");
@@ -151,7 +148,7 @@ function GooseSelector({ currentGoose, onButtonClick }) {
     // If no comma is found, return the original text
     return text;
   }
-  
+
   // Extract the first sentence from the generated text
   const firstSentence = extractFirstSentence(currentGoose.prompt);
 
@@ -163,11 +160,11 @@ function GooseSelector({ currentGoose, onButtonClick }) {
 
       <div className="photo">
         <div className="rolodex animated2">
-        <img src={gentlegoose} className="pagebackground2" />
-        <div className="above">
-          <BufferToImage key={"hello"} buffer={currentGoose.images[9][0]} />
-          <p className="bio"> {firstSentence}.</p>
-        </div>
+          <img src={gentlegoose} className="pagebackground2" />
+          <div className="above">
+            <BufferToImage key={"hello"} buffer={currentGoose.images[9][0]} />
+            <p className="bio"> ~~ {firstSentence}. ~~</p>
+          </div>
 
           <div className="yesorno">
             <img src={yesorno} className="pagebackground" />
@@ -179,9 +176,9 @@ function GooseSelector({ currentGoose, onButtonClick }) {
                 onClick={() => {
                   onButtonClick("yes");
                   const buttons = document.querySelectorAll(".yes");
-                  buttons.forEach(button => {
+                  buttons.forEach((button) => {
                     button.style.animation = "popUp 0.5s ease forwards";
-          
+
                     // Remove the animation class after 0.5s (same duration as the animation)
                     setTimeout(() => {
                       button.style.animation = ""; // Reset the animation
@@ -189,18 +186,23 @@ function GooseSelector({ currentGoose, onButtonClick }) {
                   });
                 }}
               />
-              <img src={no} alt="no" className="no" onClick={() => {
-                onButtonClick("no");
-                const buttons = document.querySelectorAll(".no");
-                buttons.forEach(button => {
-                  button.style.animation = "popUp 0.5s ease forwards";
+              <img
+                src={no}
+                alt="no"
+                className="no"
+                onClick={() => {
+                  onButtonClick("no");
+                  const buttons = document.querySelectorAll(".no");
+                  buttons.forEach((button) => {
+                    button.style.animation = "popUp 0.5s ease forwards";
 
-                  // Remove the animation class after 0.5s (same duration as the animation)
-                  setTimeout(() => {
-                    button.style.animation = ""; // Reset the animation
-                  }, 500);
-                });
-              }} />
+                    // Remove the animation class after 0.5s (same duration as the animation)
+                    setTimeout(() => {
+                      button.style.animation = ""; // Reset the animation
+                    }, 500);
+                  });
+                }}
+              />
             </div>
           </div>
 
@@ -218,8 +220,6 @@ function GooseSelector({ currentGoose, onButtonClick }) {
   );
 }
 
-
-
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isPopping, setIsPopping] = useState(false);
@@ -230,15 +230,29 @@ function App() {
   const [gooseImages, setGooseImages] = useState([null]); // initialGooseImages is an array of image URLs
   const [currentGooseIndex, setCurrentGooseIndex] = useState(0);
 
-  const removeGooseImage = (response) => {
+  const removeGooseImage = async (response) => {
     if (response === "yes" || response === "no") {
       // Remove the current goose image from the list
       setGooseImages((prevImages) =>
         prevImages.filter((_, index) => index !== currentGooseIndex)
       );
+
+      if (currentGooseIndex === gooseImages.length - 1) {
+        setIsLoading(true);
+        setCurrentPage("third");
+        console.log("Calling Cohere API with bio:", myBio);
+        let resp = await callCohereApi(myBio, 0.9);
+        console.log("Response from Cohere:", resp);
+        const results = await processPrompts(resp);
+        setGooseImages(results);
+        console.log(results);
+        // remove items if more than 5
+        setIsLoading(false);
+      }
       // Optionally, update the current goose index
+
       setCurrentGooseIndex((prevIndex) =>
-        prevIndex === gooseImages.length - 1 ? 0 : prevIndex + 1
+        prevIndex === gooseImages.length - 1 ? 0 : prevIndex
       );
     }
   };
@@ -284,15 +298,12 @@ function App() {
             setIsLoading(true);
             setCurrentPage("third");
             console.log("Calling Cohere API with bio:", myBio);
-            let resp = await callCohereApi(myBio);
+            let resp = await callCohereApi(myBio, 0.9);
             console.log("Response from Cohere:", resp);
             const results = await processPrompts(resp);
             setGooseImages(results);
             console.log(results);
             // remove items if more than 5
-            if (results.length > 5) {
-              results.splice(5, results.length - 5);
-            }
             setIsLoading(false);
           }}
         />
@@ -307,7 +318,7 @@ function App() {
             <div class="dot"></div>
             <div class="dot"></div>
           </div>
-      </div>
+        </div>
       ) : (
         <GooseSelector
           currentGoose={gooseImages[currentGooseIndex]}
