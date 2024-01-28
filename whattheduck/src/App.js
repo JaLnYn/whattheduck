@@ -15,8 +15,6 @@ import welcome from "./welcome.svg";
 import notepad from "./notepad.svg";
 import inputstart from "./inputstart.svg";
 import AutoGrowingTextarea from "./AutoGrowingTextarea";
-import matched from "./matched.svg"
-import retry from "./retry.svg"
 
 import callCohereApi from "./scripts/cohereAPI";
 import processPrompts from "./scripts/diffAPI";
@@ -140,35 +138,16 @@ function BufferToImage({ buffer }) {
 
 function GooseSelector({ currentGoose, onButtonClick }) {
 
-  const [svgToShow, setSvgToShow] = useState(null);
-
-  const handleYesButtonClick = () => {
-    onButtonClick("yes");
-    setSvgToShow("matched"); // Set the SVG to show
-    setTimeout(() => {
-      setSvgToShow(null); // Reset the SVG after 1 second
-    }, 1000);
-  };
-
-  // Function to handle the click event for the "no" button
-  const handleNoButtonClick = () => {
-    onButtonClick("no");
-    setSvgToShow("retry"); // Set the SVG to show
-    setTimeout(() => {
-      setSvgToShow(null); // Reset the SVG after 1 second
-    }, 1000);
-  };
-
   function extractFirstSentence(text) {
     // Find the index of the first comma
-    const commaIndex = text.indexOf(',');
-  
+    const commaIndex = text.indexOf(",");
+
     // If there's a comma in the text
     if (commaIndex !== -1) {
       // Extract the text before the comma
       return text.substring(0, commaIndex).trim();
     }
-  
+
     // If no comma is found, return the original text
     return text;
   }
