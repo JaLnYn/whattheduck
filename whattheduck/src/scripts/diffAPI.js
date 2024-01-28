@@ -86,7 +86,7 @@ export async function processPrompts(prompts) {
       "cfg": 8,
       "sampler_name": "euler",
       "scheduler": "normal",
-      "denoise": 0.70,
+      "denoise": 0.80,
       "model": [
         "4",
         0
