@@ -13,6 +13,9 @@ import rolodexbody from "./rolodexbody.svg";
 import rolodexwheel from "./rolodexwheel.svg";
 import welcome from "./welcome.svg";
 import notepad from "./notepad.svg";
+import inputstart from "./inputstart.svg";
+import AutoGrowingTextarea from './AutoGrowingTextarea';
+
 
 function Splash({ isPopping, onImageClick }) {
   return (
@@ -27,31 +30,80 @@ function Splash({ isPopping, onImageClick }) {
   );
 }
 
-function Notepad({ myBio, setMyBio, onButtonClick }) {
+
+function Notepad({ myBio, setMyBio, onButtonClick, myName, setMyName, myAge, setMyAge }) {
   return (
     <div className="Page Container">
       <div className="title">
         <img src={welcome} alt="welcome" className="welcome" />
       </div>
 
+    <div className="notepad_input">
+      <img src={inputstart} className="inputstart" />
+
+      {/* Asking Name */}
       {/* temperature */}
-      <div>
-        <input
-          type="text"
-          value={myBio}
-          onChange={(e) => setMyBio(e.target.value)}
-          placeholder="Enter some text"
-        />
-        <button onClick={onButtonClick}>continnue</button>
+      <div className="askname">
+        <span className="question">What's your name?</span>
+        <div className="initial_information">
+        <span className="question semicolon">:</span>
+                <AutoGrowingTextarea
+                  type="text"
+                  value={myName}
+                  onChange={(e) => setMyName(e.target.value)}
+                  placeholder="Enter some text"
+                  className="input_text"
+                />
+        </div>
+      </div>
+      
+      {/* //temp */}
+
+      {/* Asking Age */}
+      {/* temperature */}
+      <div className="askage">
+        <span className="question">What's your age?</span>
+        <div className="initial_information">
+        <span className="question semicolon">:</span>
+                <AutoGrowingTextarea
+                  type="text"
+                  value={myAge}
+                  onChange={(e) => setMyAge(e.target.value)}
+                  placeholder="Enter some text"
+                  className="input_text"
+                  rows={2}
+                />
+        </div>
       </div>
       {/* //temp */}
 
-      <div className="notepad-wrapper">
-        <div className="notepad">
+      {/* This one is bio */}
+      {/* temperature */}
+      <div className="askbio">
+        <span className="question">Share your bio!</span>
+        <div className="initial_information">
+        <span className="question semicolon">:</span>
+                <AutoGrowingTextarea
+                  type="text"
+                  value={myBio}
+                  onChange={(e) => setMyBio(e.target.value)}
+                  placeholder="Enter some text"
+                  className="input_text"
+                />
+        </div>
+      </div>
+      {/* //temp */}
+
+      <div className="submit" onClick={onButtonClick}>
+        Let's Start!
+      </div>
+
+        <div className="notepad-wrapper">
           <img src={notepad} alt="notepad" className="notepad-image" />
         </div>
       </div>
     </div>
+      
   );
 }
 
@@ -87,10 +139,14 @@ function GooseSelector() {
   );
 }
 
+
+
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isPopping, setIsPopping] = useState(false);
   const [myBio, setMyBio] = useState("");
+  const [myName, setMyName] = useState("");
+  const [myAge, setMyAge] = useState("");
   const [currentPage, setCurrentPage] = useState("first");
 
   useEffect(() => {
@@ -109,9 +165,14 @@ function App() {
   switch (currentPage) {
     case "first":
       content = isLoading ? (
-        <div className="LoadingScreen">
-          <p>Loading...</p>
-        </div>
+        <div class="loading-container">
+          <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+      </div>
       ) : (
         <Splash isPopping={isPopping} onImageClick={handleImageClick} />
       );
@@ -121,6 +182,10 @@ function App() {
         <Notepad
           myBio={myBio}
           setMyBio={setMyBio}
+          myName={myName}
+          setMyName={setMyName}
+          myAge={myAge}
+          setMyAge={setMyAge}
           onButtonClick={() => {
             setCurrentPage("third");
           }}

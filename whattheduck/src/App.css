@@ -210,3 +210,137 @@
   left: 50%; /* Center the notepad horizontally */
   transform: translateX(-50%); /* Adjust to horizontally center the notepad */
 }
+
+.notepad_input{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputstart{
+  position: absolute;
+  z-index: 2;
+}
+
+.input_text{
+  border: none;
+  font-family: "itc-american-typewriter", serif;
+  font-weight: 500;
+  background-color: #f8f8f0;
+  margin-left: 6px;
+  width: 268px;
+}
+
+.inputstart{
+  top: 30px;
+}
+
+.submit{
+  font-family: Helvetica;
+  font-weight: 700;
+  font-size: 19px;
+  color: white;
+  background-color: #286ddf;
+  width: 145px;
+  height: 46px;
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 165px;
+  cursor: pointer;
+}
+
+.initial_information{
+  margin-top: 13px;
+  display: flex;
+}
+
+.question{
+  font-family: "itc-american-typewriter", serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: black;
+  font-style: italic;
+  width: 299px;
+}
+
+.askname, .askage, .askbio{
+  position: absolute;
+  z-index: 2;
+  text-align: left;
+  padding-left: 22px;
+  width: 299px;
+}
+
+.askname{
+  top: 116px;
+}
+
+.askage{
+  top: 221px;
+}
+
+.askbio{
+  top: 326px;
+}
+
+.semicolon{
+  width: 4px;
+}
+
+textarea{
+  border: none;
+  font-family: "itc-american-typewriter", serif;
+  font-weight: 500;
+  background-color: #f8f8f0;
+  margin-left: 6px;
+  width: 268px;
+}
+
+.loading-container {
+  width: 80px;
+  height: 100px;
+}
+
+.loading-dots {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: white;
+  animation: jump 0.5s ease-in-out infinite alternate;
+  margin-top: 15px; 
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0.4s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.6s; /* Adjust the delay between each dot */
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.8s; /* Adjust the delay between each dot */
+}
+
+.dot:nth-child(4) {
+  animation-delay: 1s; /* Adjust the delay between each dot */
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
